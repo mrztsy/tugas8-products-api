@@ -2,15 +2,17 @@
 
 API CRUD Products menggunakan NestJS dan MongoDB Atlas (Mongoose), sesuai spesifikasi tugas.
 
-## 🚀 Cara Menjalankan
+## Cara Menjalankan
 
 ### 1. Install dependencies
+
 ```bash
 npm install
 ```
 
 ### 2. Setup koneksi MongoDB Atlas
-Buka file `.env` (sudah disediakan, salinan dari `.env.example`), lalu ganti `MONGODB_URI` dengan connection string Atlas milikmu:
+
+Buka file `.env` , lalu ganti `MONGODB_URI` dengan connection string Atlas milikmu:
 
 ```env
 MONGODB_URI=mongodb+srv://<username>:<password>@<cluster-url>/<database-name>?retryWrites=true&w=majority
@@ -21,6 +23,7 @@ PORT=3000
 > Pastikan IP Address kamu sudah ditambahkan di Network Access (atau pakai `0.0.0.0/0` untuk akses dari mana saja, khusus untuk keperluan tugas/development).
 
 ### 3. Jalankan server (development, auto-reload)
+
 ```bash
 npm run start:dev
 ```
@@ -28,12 +31,14 @@ npm run start:dev
 Server berjalan di `http://localhost:3000`
 
 ### 4. Build untuk production
+
 ```bash
 npm run build
 npm run start:prod
 ```
 
-## 📁 Struktur Folder
+## Struktur Folder
+
 ```
 src/
 ├── app.module.ts          # Root module, setup ConfigModule & MongooseModule
@@ -49,25 +54,26 @@ src/
         └── product.schema.ts
 ```
 
-## 📌 Endpoint API
+## Endpoint API
 
-| Endpoint                  | Method | Deskripsi                       |
-|----------------------------|--------|----------------------------------|
-| `/products`                | POST   | Menambah produk baru            |
-| `/products`                | GET    | Mendapatkan semua produk        |
-| `/products/:id`            | GET    | Mendapatkan produk berdasarkan ID |
-| `/products/:id`            | PUT    | Mengupdate produk               |
-| `/products/:id`            | DELETE | Menghapus produk                |
-| `/products/search?q=keyword` | GET  | Mencari produk berdasarkan nama |
+| Endpoint                     | Method | Deskripsi                         |
+| ---------------------------- | ------ | --------------------------------- |
+| `/products`                  | POST   | Menambah produk baru              |
+| `/products`                  | GET    | Mendapatkan semua produk          |
+| `/products/:id`              | GET    | Mendapatkan produk berdasarkan ID |
+| `/products/:id`              | PUT    | Mengupdate produk                 |
+| `/products/:id`              | DELETE | Menghapus produk                  |
+| `/products/search?q=keyword` | GET    | Mencari produk berdasarkan nama   |
 
-## 📦 Contoh Request
+## Contoh Request
 
 ### Tambah produk (POST /products)
+
 ```json
 {
-  "name": "Keyboard Mechanical",
-  "price": 450000,
-  "description": "Keyboard gaming dengan switch blue",
+  "name": "Laptop Gaming",
+  "price": 15000000,
+  "description": "Laptop Gaming Acer Nitro",
   "category": "Aksesoris Komputer",
   "stock": 25,
   "isAvailable": true
@@ -75,6 +81,7 @@ src/
 ```
 
 ### Update produk (PUT /products/:id)
+
 ```json
 {
   "price": 400000,
@@ -83,11 +90,12 @@ src/
 ```
 
 ### Search produk
+
 ```
 GET /products/search?q=keyboard
 ```
 
-## ⚠️ Error Handling
+## Error Handling
 
 - **400 Bad Request** → terjadi saat:
   - Body request tidak valid (misal `name` kosong, `price` negatif)
@@ -95,11 +103,11 @@ GET /products/search?q=keyboard
   - Query `q` pada search kosong
 - **404 Not Found** → terjadi saat produk dengan `:id` yang diberikan tidak ditemukan di database
 
-## 🛠️ Fitur yang Diimplementasikan
+## Fitur yang Diimplementasikan
 
-- ✅ MongoDB Atlas (cloud database) via Mongoose, koneksi diatur lewat `.env`
-- ✅ Schema validation menggunakan decorator `@Prop()` (Mongoose) + `class-validator` di DTO
-- ✅ CRUD lengkap (Create, Read, Update, Delete)
-- ✅ Error handling 404 & 400
-- ✅ Search by name (`/products/search?q=keyword`, case-insensitive)
-- ✅ `createdAt` & `updatedAt` otomatis (`timestamps: true` di schema)
+- MongoDB Atlas (cloud database) via Mongoose, koneksi diatur lewat `.env`
+- Schema validation menggunakan decorator `@Prop()` (Mongoose) + `class-validator` di DTO
+- CRUD lengkap (Create, Read, Update, Delete)
+- Error handling 404 & 400
+- Search by name (`/products/search?q=keyword`, case-insensitive)
+- `createdAt` & `updatedAt` otomatis (`timestamps: true` di schema)
